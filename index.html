@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app = "MenuApp">
+    <head>
+        <script src = "libs/angular.min.js"></script>
+        <script src = "src/app.js"></script>
+        <link rel = "stylesheet" href = "css/style.css">
+    </head>
+    <body>
+        <div ng-controller = "MenuController as menu">
+            Menu name: {{menu.name}}<br/>
+            <button ng-click = "menu.getMyJson();">Json</button>
+            <p><b>List of all Menu Categories (From Categories.json)</b></p>
+            <button ng-click = "menu.getMenuCategories();">Get Menu Category</button> 
+            <div ng-show = "menu.visible">
+                 <table id = "table1">
+                    <tr>
+                        <td><b>Name</b></td>
+                        <td><b>ID</b></td>
+                        <td><b>Shortname</b></td>
+                    </tr>                     
+                    <tr ng-repeat = "item in menu.categories">                       
+                         <td>{{item.name}} </td> 
+                          <td>{{item.id}} </td> 
+                         <td><a href = "" ng-click = "menu.getMenuForCategory(item.short_name);">{{item.short_name}}</a>
+                         </td>                                                                   
+                    </tr>                                  
+                 </table>
+
+                  <table>
+                     <tr>
+                        <td><b>Name</b></td>
+                        <td><b>Description</b></td>
+                        <td><b>Price</b></td>
+                        <td><b>Controls</b></td>
+                    </tr>  
+                    <tr ng-repeat = "it in menu.menuitems">
+                       <td> {{it.name}}</td>
+                       <td> {{it.description}}</td>
+                       <td> {{it.price_large | currency}} </td>
+                       <td><button>Edit</button><br/><button ng-click = "menu.deleteItem(it.short_name);">Remove</button></td>
+                    </tr>
+                <table> 
+            </div>          
+                          
+              <br/>
+             <p><b>List of all Menu Items (From Menu_items.json)</b></p>
+            <button ng-click = "menu.getMenuItems();">Get Menu Items</button>
+            <p>See the console for the output</p>
+
+            <!--Displaying menu's based on category
+            <div>
+                <li ng-repeat = "item in menu.categories">
+                <a href = "" ng-click = "menu.getMenuForCategory(item.short_name);">{{item.short_name}}</a>                
+                </li>
+                <table>
+                     <tr>
+                        <td><b>Name</b></td>
+                        <td><b>Description</b></td>
+                        <td><b>Price</b></td>
+                    </tr>  
+                    <tr ng-repeat = "it in menu.menuitems">
+                       <td> {{it.name}}</td>
+                       <td> {{it.description}}</td>
+                       <td> {{it.price_large | currency}} </td>
+                    </tr>
+                <table>
+            </div>-->
+            <div>
+                <input type = "text" ng-model = "menu.name">
+                <button ng-click = "menu.createCat({name:menu.name})">Add categories</button>
+
+            </div>
+        </div>
+    </body>
+</html>
